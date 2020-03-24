@@ -34,7 +34,7 @@ export default function (Vue) {
         }
       } */
       let token = sessionStorage.getItem('token')
-      if (token !== undefined && token !== '') {
+      if (token !== undefined && token !== '' && token !== null) {
         Vue.http.headers.common['token'] = token
       }
       Vue.http.post(url, body).then(response => {
@@ -76,7 +76,7 @@ export default function (Vue) {
         }
       } */
       let token = sessionStorage.getItem('token')
-      if (token !== undefined && token !== '') {
+      if (token !== undefined && token !== '' && token !== null) {
         Vue.http.headers.common['token'] = token
       }
       // 请求类型设置

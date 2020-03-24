@@ -78,7 +78,7 @@ export default {
         sessionStorage.setItem('userImg', 'https://avatars3.githubusercontent.com/u/22117876?s=460&v=4')
         sessionStorage.setItem('users', JSON.stringify(data.user))
         // 假设这里是后台返回的 token
-        sessionStorage.setItem('token', JSON.stringify(data.token))
+        sessionStorage.setItem('token', data.token)
         // 后台返回的动态菜单
         sessionStorage.setItem('menuList', JSON.stringify(data.menuList))
         that.$router.push('/main')
