@@ -9,8 +9,11 @@ export default function createRoutes (data) {
     children
   })
   /**
-   * 默认主页任何用户角色都可以看到
+   * 默认页面任何用户角色都可以看到
    */
+  data.unshift({name: 'msg', size: 18, type: '', text: '通知消息', hidden: true})
+  data.unshift({name: 'password', size: 18, type: '', text: '修改密码', hidden: true})
+  data.unshift({name: 'userinfo', size: 18, type: '', text: '用户信息', hidden: true})
   data.unshift({name: 'home', size: 18, type: 'md-home', text: '主页'})
   data.forEach(item => {
     generateRoutes(children, item)
