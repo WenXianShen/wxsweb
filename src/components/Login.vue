@@ -1,5 +1,5 @@
 <template>
-  <div class="login-vue" :style="bg">
+  <div class="login-vue" :style="bg" id="login">
     <div class="container">
       <p class="title">WELCOME</p>
       <div class="input-c">
@@ -154,5 +154,8 @@ export default {
   }
   .login-vue .ivu-icon-ios-close-circle {
     color: #777;
+  }
+  .login-vue .ivu-input:focus, .ivu-input:hover {
+    border-color: #dcdee2;
   }
 </style>

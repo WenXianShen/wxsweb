@@ -12,7 +12,6 @@
               <Button type="primary" icon="ios-search" @click="initUserInfo('1')">查询</Button>
             </div>
           </div>
-
           <div style="margin-bottom: 20px;">
             <router-link to="userAdd">
               <Button type="primary" icon="md-add">新增</Button>
