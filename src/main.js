@@ -13,7 +13,7 @@ Vue.use(ViewUI)
 Vue.use(ElementUI)
 Vue.use(Resource)
 // 请求API
- Vue.prototype._API = Api
+Vue.prototype._API = Api
 // 通用方法
 Vue.use(Util)
 // TODO 项目地址设定

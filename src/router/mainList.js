@@ -6,12 +6,6 @@ export default
     meta: { title: '主页' },
     component: () => import('../views/index/Home.vue')
   },
-  t1: {
-    path: 't1',
-    name: 't1',
-    meta: { title: '表格' },
-    component: () => import('../views/index/T1.vue')
-  },
   password: {
     path: 'password',
     name: 'password',
@@ -33,7 +27,7 @@ export default
   userManage: {
     path: 'userManage',
     name: 'userManage',
-    meta: { title: '账号管理' },
+    meta: { title: '用户管理' },
     component: () => import('../views/user/UserManage.vue')
   },
   userAdd: {

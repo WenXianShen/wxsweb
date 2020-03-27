@@ -1,135 +1,175 @@
 <template>
-    <div class="index-vue">
-        <!-- 侧边栏 -->
-        <aside :class="asideClassName">
-            <!-- logo -->
-            <div class="logo-c">
-                <img src="../assets/imgs/logo.jpg" alt="logo" class="logo">
-                <span v-show="isShowAsideTitle">后台管理系统</span>
+  <div class="index-vue">
+    <!-- 侧边栏 -->
+    <aside :class="asideClassName">
+      <!-- logo -->
+      <div class="logo-c">
+        <img src="../assets/imgs/logo.jpg" alt="logo" class="logo" />
+        <span v-show="isShowAsideTitle">后台管理系统</span>
+      </div>
+      <!-- 菜单栏 -->
+      <Menu
+        class="menu"
+        ref="asideMenu"
+        theme="dark"
+        width="100%"
+        @on-select="selectMenuCallback"
+        accordion
+        :open-names="openMenus"
+        :active-name="currentPage"
+        @on-open-change="menuChange"
+      >
+        <!-- 动态菜单 -->
+        <div v-for="(item, index) in menuItems" :key="index">
+          <Submenu
+            :class="isShowAsideTitle ? '' : 'shrink'"
+            v-if="item.children"
+            :name="index"
+          >
+            <template slot="title">
+              <Icon :size="item.size" :type="item.type" />
+              <span v-show="isShowAsideTitle">{{ item.text }}</span>
+            </template>
+            <div v-for="(subItem, i) in item.children" :key="index + i">
+              <Submenu
+                :class="isShowAsideTitle ? '' : 'shrink'"
+                v-if="subItem.children"
+                :name="index + '-' + i"
+              >
+                <template slot="title" v-if="!subItem.hidden">
+                  <Icon :size="subItem.size" :type="subItem.type" />
+                  <span v-show="isShowAsideTitle">{{ subItem.text }}</span>
+                </template>
+                <MenuItem
+                  :class="isShowAsideTitle ? '' : 'shrink'"
+                  class="menu-level-3"
+                  v-for="(threeItem, k) in subItem.children"
+                  :name="threeItem.name"
+                  :key="index + i + k"
+                >
+                  <template v-if="!threeItem.hidden">
+                    <Icon :size="threeItem.size" :type="threeItem.type" />
+                    <span v-show="isShowAsideTitle">{{ threeItem.text }}</span>
+                  </template>
+                </MenuItem>
+              </Submenu>
+              <MenuItem
+                :class="isShowAsideTitle ? '' : 'shrink'"
+                v-else-if="!subItem.hidden"
+                :name="subItem.name"
+              >
+                <Icon :size="subItem.size" :type="subItem.type" />
+                <span v-show="isShowAsideTitle">{{ subItem.text }}</span>
+              </MenuItem>
             </div>
-            <!-- 菜单栏 -->
-            <Menu class="menu" ref="asideMenu" theme="dark" width="100%" @on-select="selectMenuCallback"
-            accordion :open-names="openMenus" :active-name="currentPage" @on-open-change="menuChange">
-                <!-- 动态菜单 -->
-                <div v-for="(item, index) in menuItems" :key="index">
-                    <Submenu :class="isShowAsideTitle? '' : 'shrink'" v-if="item.children" :name="index">
-                        <template slot="title">
-                            <Icon :size="item.size" :type="item.type"/>
-                            <span v-show="isShowAsideTitle">{{item.text}}</span>
-                        </template>
-                        <div v-for="(subItem, i) in item.children" :key="index + i">
-                            <Submenu :class="isShowAsideTitle? '' : 'shrink'" v-if="subItem.children" :name="index + '-' + i">
-                                <template slot="title" v-if="!subItem.hidden">
-                                    <Icon :size="subItem.size" :type="subItem.type"/>
-                                    <span v-show="isShowAsideTitle">{{subItem.text}}</span>
-                                </template>
-                                <MenuItem :class="isShowAsideTitle? '' : 'shrink'" class="menu-level-3"
-                                v-for="(threeItem, k) in subItem.children" :name="threeItem.name" :key="index + i + k">
-                                    <template v-if="!threeItem.hidden">
-                                        <Icon :size="threeItem.size" :type="threeItem.type"/>
-                                        <span v-show="isShowAsideTitle">{{threeItem.text}}</span>
-                                    </template>
-                                </MenuItem>
-                            </Submenu>
-                            <MenuItem :class="isShowAsideTitle? '' : 'shrink'" v-else-if="!subItem.hidden" :name="subItem.name">
-                                <Icon :size="subItem.size" :type="subItem.type"/>
-                                <span v-show="isShowAsideTitle">{{subItem.text}}</span>
-                            </MenuItem>
-                        </div>
-                    </Submenu>
-                    <MenuItem :class="isShowAsideTitle? '' : 'shrink'" v-else-if="!item.hidden" :name="item.name">
-                        <Icon :size="item.size" :type="item.type" />
-                        <span v-show="isShowAsideTitle">{{item.text}}</span>
-                    </MenuItem>
-                </div>
-            </Menu>
-        </aside>
+          </Submenu>
+          <MenuItem
+            :class="isShowAsideTitle ? '' : 'shrink'"
+            v-else-if="!item.hidden"
+            :name="item.name"
+          >
+            <a>{{ item.hidden }}</a>
+            <Icon :size="item.size" :type="item.type" />
+            <span v-show="isShowAsideTitle">{{ item.text }}</span>
+          </MenuItem>
+        </div>
+      </Menu>
+    </aside>
 
-        <!-- 右侧部分 -->
-        <section class="sec-right">
-            <!-- 头部 -->
-            <div class="top-c">
-                <header>
-                    <div class="h-left">
-                        <div class="pointer" @click="isShrinkAside" title="收缩/展开">
-                            <Icon type="ios-apps" />
-                        </div>
-                        <!-- 面包屑功能 -->
-                        <p class="crumbs">{{crumbs}}</p>
-                    </div>
-                    <div class="h-right">
-                        <!-- 消息 -->
-                        <div class="notice-c" @click="info" title="查看新消息">
-                            <div :class="{newMsg: hasNewMsg}"></div>
-                            <Icon type="ios-notifications-outline" />
-                        </div>
-                        <!-- 用户头像 -->
-                        <div class="user-img-c">
-                            <img :src="userImg">
-                        </div>
-                        <!-- 下拉菜单 -->
-                        <Dropdown trigger="click" @on-click="userOperate" @on-visible-change="showArrow">
-                            <div class="pointer">
-                                <span>{{userName}}</span>
-                                <Icon v-show="arrowDown" type="md-arrow-dropdown"/>
-                                <Icon v-show="arrowUp" type="md-arrow-dropup"/>
-                            </div>
-                            <DropdownMenu slot="list">
-                                <!-- name标识符 -->
-                                <DropdownItem name="1">修改密码</DropdownItem>
-                                <DropdownItem name="2">基本资料</DropdownItem>
-                                <DropdownItem divided  name="3">退出登陆</DropdownItem>
-                            </DropdownMenu>
-                        </Dropdown>
-                    </div>
-                </header>
+    <!-- 右侧部分 -->
+    <section class="sec-right">
+      <!-- 头部 -->
+      <div class="top-c">
+        <header>
+          <div class="h-left">
+            <div class="pointer" @click="isShrinkAside" title="收缩/展开">
+              <Icon type="ios-apps" />
+            </div>
+            <!-- 面包屑功能 -->
+            <p class="crumbs">{{ crumbs }}</p>
+          </div>
+          <div class="h-right">
+            <!-- 消息 -->
+            <div class="notice-c" @click="info" title="查看新消息">
+              <div :class="{ newMsg: hasNewMsg }"></div>
+              <Icon type="ios-notifications-outline" />
+            </div>
+            <!-- 用户头像 -->
+            <div class="user-img-c">
+              <img :src="userImg" />
+            </div>
+            <!-- 下拉菜单 -->
+            <Dropdown
+              trigger="click"
+              @on-click="userOperate"
+              @on-visible-change="showArrow"
+            >
+              <div class="pointer">
+                <span>{{ userName }}</span>
+                <Icon v-show="arrowDown" type="md-arrow-dropdown" />
+                <Icon v-show="arrowUp" type="md-arrow-dropup" />
+              </div>
+              <DropdownMenu slot="list">
+                <!-- name标识符 -->
+                <DropdownItem name="1">修改密码</DropdownItem>
+                <DropdownItem name="2">基本资料</DropdownItem>
+                <DropdownItem divided name="3">退出登陆</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
+        </header>
 
-                <!-- 标签栏 -->
-                <div class="div-tags">
-                    <ul class="ul-c">
-                        <li v-for="(item, index) in tagsArry" :key="index" :class="{active: isActive(item.name)}" @click="activeTag(index)">
-                            <a class="li-a">
-                                {{item.text}}
-                            </a>
-                            <Icon size="16" @click="closeTag(index)" type="md-close" />
-                        </li>
-                    </ul>
-                    <!-- 标签栏相关功能 -->
-                    <div class="div-icons">
-                        <!--<div class="refresh-c" @click="reloadPage" title="刷新当前标签页">
+        <!-- 标签栏 -->
+        <div class="div-tags">
+          <ul class="ul-c">
+            <li
+              v-for="(item, index) in tagsArry"
+              :key="index"
+              :class="{ active: isActive(item.name) }"
+              @click="activeTag(index)"
+            >
+              <a class="li-a">
+                {{ item.text }}
+              </a>
+              <Icon size="16" @click="closeTag(index)" type="md-close" />
+            </li>
+          </ul>
+          <!-- 标签栏相关功能 -->
+          <div class="div-icons">
+            <!--<div class="refresh-c" @click="reloadPage" title="刷新当前标签页">
                             <Icon type="md-refresh" />
                         </div>-->
-                        <div class="tag-options" title="关闭标签">
-                            <Dropdown trigger="click" @on-click="closeTags">
-                              <Button type="primary" style="height: 24px;">
-                                其他选项
-                                <Icon type="ios-arrow-down"></Icon>
-                              </Button>
-                                <DropdownMenu slot="list">
-                                    <DropdownItem name="1">关闭其他标签</DropdownItem>
-                                    <DropdownItem name="2">关闭所有标签</DropdownItem>
-                                </DropdownMenu>
-                            </Dropdown>
-                        </div>
-                    </div>
-                </div>
+            <div class="tag-options" title="关闭标签">
+              <Dropdown trigger="click" @on-click="closeTags">
+                <Button type="primary" style="height: 24px;">
+                  其他选项
+                  <Icon type="ios-arrow-down"></Icon>
+                </Button>
+                <DropdownMenu slot="list">
+                  <DropdownItem name="1">关闭其他标签</DropdownItem>
+                  <DropdownItem name="2">关闭所有标签</DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
             </div>
-            <!-- 页面主体 -->
-            <div class="main-content">
-                <div class="view-c">
-                  <router-view/>
+          </div>
+        </div>
+      </div>
+      <!-- 页面主体 -->
+      <div class="main-content">
+        <div class="view-c">
+          <router-view />
 
-                  <!--  <keep-alive>  // 缓存页面
+          <!--  <keep-alive>  // 缓存页面
                         &lt;!&ndash; 子页面 &ndash;&gt;
 
                     </keep-alive>-->
-                    <div class="loading-c" v-show="showLoading">
-                        <Spin size="large"></Spin>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
+          <div class="loading-c" v-show="showLoading">
+            <Spin size="large"></Spin>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -215,7 +255,9 @@ export default {
     this.userName = JSON.parse(sessionStorage.getItem('users')).name
     this.userImg = sessionStorage.getItem('userImg')
     this.main = document.querySelector('.sec-right')
-    this.asideArrowIcons = document.querySelectorAll('aside .ivu-icon-ios-arrow-down')
+    this.asideArrowIcons = document.querySelectorAll(
+      'aside .ivu-icon-ios-arrow-down'
+    )
 
     // 监听窗口大小 自动收缩侧边栏
     this.monitorWindowSize()
@@ -305,8 +347,12 @@ export default {
 
       window.onresize = () => {
         // 可视窗口宽度太小 自动收缩侧边栏
-        if (w < 1300 && this.isShowAsideTitle &&
-                    w > (document.documentElement.clientWidth || document.body.clientWidth)) {
+        if (
+          w < 1300 &&
+          this.isShowAsideTitle &&
+          w >
+            (document.documentElement.clientWidth || document.body.clientWidth)
+        ) {
           this.shrinkAside()
         }
 
@@ -415,7 +461,10 @@ export default {
           this.isShowRouter = false
           this.tagsArry.splice(index, 1)
           this.$nextTick(() => {
-            this.tagsArry.splice(index, 0, { name, text: this.nameToTitle[name] })
+            this.tagsArry.splice(index, 0, {
+              name,
+              text: this.nameToTitle[name]
+            })
             this.gotoPage(name)
             this.isShowRouter = true
           })
@@ -483,22 +532,24 @@ export default {
       this.$Notice.info({
         title: `您有${this.msgNum}条消息`,
         render (h) {
-          return h('Button', {
-            attrs: {
-              type: 'info',
-              size: 'small'
-            },
-            on: {
-              click () {
-                // 点击查看跳转到消息页
-                self.gotoPage('msg')
-                self.hasNewMsg = false
-                self.msgNum = 0
+          return h(
+            'Button',
+            {
+              attrs: {
+                type: 'info',
+                size: 'small'
+              },
+              on: {
+                click () {
+                  // 点击查看跳转到消息页
+                  self.gotoPage('msg')
+                  self.hasNewMsg = false
+                  self.msgNum = 0
+                }
               }
-            }
-          }, [
-            '点击查看'
-          ])
+            },
+            ['点击查看']
+          )
         }
       })
     },
@@ -513,7 +564,11 @@ export default {
       }
       if (data.children) {
         data.children.forEach(e => {
-          this.processNameToTitle(obj, e, text ? `${text} / ${data.text}` : data.text)
+          this.processNameToTitle(
+            obj,
+            e,
+            text ? `${text} / ${data.text}` : data.text
+          )
         })
       }
     }
@@ -523,193 +578,193 @@ export default {
 
 <style scoped>
 .index-vue {
-    height: 100%;
-    color: #666;
+  height: 100%;
+  color: #666;
 }
 /* 侧边栏 */
 aside {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 90px;
-    background: #20222A;
-    height: 100%;
-    transition: width .3s;
-    overflow: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 90px;
+  background: #20222a;
+  height: 100%;
+  transition: width 0.3s;
+  overflow: auto;
 }
 .logo-c {
-    display: flex;
-    align-items: center;
-    color: rgba(255,255,255,.8);
-    font-size: 16px;
-    margin: 20px 0;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+  margin: 20px 0;
+  justify-content: center;
 }
 .logo {
-    width: 100px;
-    margin-right: 10px;
+  width: 100px;
+  margin-right: 10px;
 }
 .aside-big {
-    width: 220px;
+  width: 220px;
 }
 /* 主体页面 */
 .sec-right {
-    height: 100%;
-    margin-left: 220px;
-    transition: margin-left .3s;
-    overflow: hidden;;
-    background: #f3f7fd;
+  height: 100%;
+  margin-left: 220px;
+  transition: margin-left 0.3s;
+  overflow: hidden;
+  background: #f3f7fd;
 }
 /* 主体页面头部 */
 header {
-    height: 50px;
-    border-bottom: none;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-right: 40px;
-    padding-left: 10px;
-    font-size: 14px;
+  height: 50px;
+  border-bottom: none;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 40px;
+  padding-left: 10px;
+  font-size: 14px;
 }
 header .ivu-icon {
-    font-size: 24px;
+  font-size: 24px;
 }
 .refresh-c {
-    margin: 0 30px;
-    cursor: pointer;
+  margin: 0 30px;
+  cursor: pointer;
 }
 .h-right {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 .h-left {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 .user-img-c img {
-    width: 100%;
+  width: 100%;
 }
 .notice-c {
-    cursor: pointer;
-    position: relative;
+  cursor: pointer;
+  position: relative;
 }
 .newMsg {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #FF5722;
-    right: 0;
-    top: 0;
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ff5722;
+  right: 0;
+  top: 0;
 }
 .user-img-c {
-    width: 34px;
-    height: 34px;
-    background: #ddd;
-    border-radius: 50%;
-    margin: 0 40px;
-    overflow: hidden;
+  width: 34px;
+  height: 34px;
+  background: #ddd;
+  border-radius: 50%;
+  margin: 0 40px;
+  overflow: hidden;
 }
 .tag-options {
-    cursor: pointer;
-    position: relative;
+  cursor: pointer;
+  position: relative;
 }
 .div-tags {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 4px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4px 0;
 }
 .div-icons {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    background: #fff;
-    height: 34px;
-    width: 160px;
-    font-size: 18px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: #fff;
+  height: 34px;
+  width: 160px;
+  font-size: 18px;
 }
 /* 标签栏 */
 .ul-c {
-    height: 34px;
-    background: #fff;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 0 10px;
-    overflow: hidden;
-    width: calc(100% - 160px);
+  height: 34px;
+  background: #fff;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 10px;
+  overflow: hidden;
+  width: calc(100% - 160px);
 }
 .ul-c li {
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 12px;
-    height: 24px;
-    padding: 0 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 3px 5px 2px 3px;
-    border: 1px solid #e6e6e6;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  height: 24px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 3px 5px 2px 3px;
+  border: 1px solid #e6e6e6;
 }
 a {
-    color: #666;
-    transition: none;
+  color: #666;
+  transition: none;
 }
 .li-a {
-    max-width: 80px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  max-width: 80px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .ul-c .ivu-icon {
-    margin-left: 6px;
+  margin-left: 6px;
 }
 .active {
-    background: #409eff;
-    border: 1px solid #409eff;
+  background: #409eff;
+  border: 1px solid #409eff;
 }
 .active a {
-    color: #fff;
+  color: #fff;
 }
 .active .ivu-icon {
-    color: #fff;
+  color: #fff;
 }
 /* 主要内容区域 */
 .main-content {
-    height: calc(100% - 88px);
-    overflow: hidden;
+  height: calc(100% - 88px);
+  overflow: hidden;
 }
 .view-c {
-    position: relative;
-    height: 100%;
-    overflow: hidden;
+  position: relative;
+  height: 100%;
+  overflow: hidden;
 }
 .pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
 /* loading */
 .loading-c {
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background: rgba(255,255,255,.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .crumbs {
-    margin-left: 10px;
-    color: #97a8be;
-    cursor: default;
+  margin-left: 10px;
+  color: #97a8be;
+  cursor: default;
 }
 .menu-level-3 .ivu-icon {
-    font-size: 18px;
+  font-size: 18px;
 }
 .shrink {
-    text-align: center;
+  text-align: center;
 }
 </style>
