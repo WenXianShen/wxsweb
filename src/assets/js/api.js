@@ -9,5 +9,8 @@ export default {
   user: {
     // 根据条件查询用户列表
     getUserList: 'user/getUserList'
+  },
+  menu: {
+    getMenuList: 'menu/getMenuList'
   }
 }

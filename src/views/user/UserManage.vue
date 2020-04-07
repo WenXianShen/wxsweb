@@ -9,7 +9,10 @@
             </Form>
 
             <div style="float: right;margin-right: 1%;">
-              <Button type="primary" icon="ios-search" @click="initUserInfo('1')">查询</Button>
+              <Button type="primary" icon="ios-search" @click="initUserInfo(1)">查询</Button>
+              <Button type="primary" icon="ios-close" @click="clear()"
+              >重置</Button
+              >
             </div>
           </div>
           <div style="margin-bottom: 20px;">
@@ -46,7 +49,7 @@ export default {
       tableData: [],
       totalCount: 0,
       formItem: {
-        pager: {currentPage: 0, pagesize: 1},
+        pager: {currentPage: 1, pagesize: 10},
         id: '',
         name: '',
         userType: 0
@@ -69,6 +72,9 @@ export default {
       this.formItem.pager.pagesize = pageSize
       this.formItem.pager.currentPage = 1
       this.initUserInfo(1)
+    },
+    clear () {
+      this.formItem.name = ''
     }
   }
 
