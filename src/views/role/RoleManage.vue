@@ -3,8 +3,8 @@
         <div style="background: #fff; border-radius: 8px; padding: 40px;height: 1000px;">
           <div style="height: 100px;">
             <Form :model="formItem" :label-width="100">
-              <FormItem label="用户名：" style="width: 20%;">
-                <Input v-model="formItem.name" placeholder="请输入" ></Input>
+              <FormItem label="角色名称：" style="width: 20%;">
+                <Input v-model="formItem.roleName" placeholder="请输入" ></Input>
               </FormItem>
             </Form>
 
@@ -16,7 +16,7 @@
             </div>
           </div>
           <div style="margin-bottom: 20px;">
-            <router-link to="userAdd">
+            <router-link to="roleAdd">
               <Button type="primary" icon="md-add">新增</Button>
             </router-link>
           </div>
@@ -34,16 +34,16 @@ export default {
     return {
       columns: [
         {
-          title: '用户名',
-          key: 'name'
+          title: '角色名称',
+          key: 'roleName'
         },
         {
-          title: '性别',
-          key: 'gender'
+          title: '角色类型',
+          key: 'roleType'
         },
         {
-          title: '住址',
-          key: 'address'
+          title: '描述',
+          key: 'description'
         }
       ],
       tableData: [],
@@ -51,8 +51,8 @@ export default {
       formItem: {
         pager: {currentPage: 1, pagesize: 10},
         id: '',
-        name: '',
-        userType: 0
+        roleName: '',
+        roleType: 0
       }
     }
   },
@@ -63,7 +63,7 @@ export default {
     initUserInfo (currentPage) {
       let that = this
       that.formItem.pager.currentPage = currentPage
-      this._UTIL.jpost(this._API.user.getUserList, this.formItem, function (data) {
+      this._UTIL.jpost(this._API.role.getRoleList, this.formItem, function (data) {
         that.tableData = data.list
         that.totalCount = data.totolCount
       })
@@ -74,7 +74,7 @@ export default {
       this.initUserInfo(1)
     },
     clear () {
-      this.formItem.name = ''
+      this.formItem.roleName = ''
     }
   }
 

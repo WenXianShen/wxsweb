@@ -39,5 +39,15 @@ export default
     path: 'menuManage',
     name: 'menuManage',
     component: () => import('../views/menu/MenuManage.vue')
+  },
+  roleManage: {
+    path: 'roleManage',
+    name: 'roleManage',
+    component: () => import('../views/role/RoleManage.vue')
+  },
+  roleAdd: {
+    path: 'roleAdd',
+    name: 'roleAdd',
+    component: () => import('../views/role/roleAdd.vue')
   }
 }

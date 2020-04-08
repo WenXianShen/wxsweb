@@ -49,7 +49,7 @@
 
 <script>
 export default {
-  name: 'serManage',
+  name: 'menuManage',
   data () {
     return {
       columns: [

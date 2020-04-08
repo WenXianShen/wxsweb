@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/wxs/*': {
-        target: 'http://localhost:8081/wxs',
+        target: 'http://localhost:8090/wxs',
         changeOrigin: true,
         pathRewrite: {
           '^/wxs': ''
@@ -51,6 +51,7 @@ module.exports = {
   },
 
   build: {
+    env: require('./prod.env'),
     // Template for index.html
     index: path.resolve(__dirname, '../dist/index.html'),
 
@@ -58,6 +59,15 @@ module.exports = {
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
     assetsPublicPath: './',
+    proxyTable: {
+      '/wxs/*': {
+        target: 'http://localhost:8090/wxs',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/wxs': ''
+        }
+      }
+    },
 
     /**
      * Source Maps

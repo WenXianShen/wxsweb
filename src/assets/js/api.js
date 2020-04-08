@@ -12,5 +12,8 @@ export default {
   },
   menu: {
     getMenuList: 'menu/getMenuList'
+  },
+  role: {
+    getRoleList: 'role/getRoleList'
   }
 }

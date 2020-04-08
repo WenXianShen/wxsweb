@@ -4,7 +4,7 @@
       style="background: #fff; border-radius: 8px; padding: 40px;height: 1000px;"
     >
       <div style="height: 100px;">
-        <Form :model="formItem" :label-width="100">
+        <Form :model="formItem" :label-width="80">
           <FormItem label="账号：" style="width: 20%;">
             <Input v-model="formItem.account" placeholder="请输入"></Input>
           </FormItem>
