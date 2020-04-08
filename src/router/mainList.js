@@ -48,6 +48,6 @@ export default
   roleAdd: {
     path: 'roleAdd',
     name: 'roleAdd',
-    component: () => import('../views/role/roleAdd.vue')
+    component: () => import('../views/role/RoleAdd.vue')
   }
 }
