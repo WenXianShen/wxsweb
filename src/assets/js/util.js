@@ -13,26 +13,7 @@ export default function (Vue) {
     // json类型post请求
     jpost: function (url, body, callback) {
       // appId 请求的来源标识，多系统共用接口时可配置区别或其它业务逻辑使用
-      body.appId = 'REM_WEB'
-      // 用户唯一标识，提交给服务器校验
-      /*   let userKey = this.getUserKey()
-      if (userKey) {
-        body.userKey = userKey
-      }
-      if (!this.arrayExists(url, ignoreUrlList)) {
-        // 针对不同权限，添加对应参数
-        let userInfo = this.getLoginUser()
-        if (userInfo === null) {
-          window.location.href = '#/'
-        } else {
-          if (userInfo.orgType === '2') {
-            body.educationBureauId = userInfo.educationBureauId
-          }
-          if (userInfo.orgType === '4') {
-            body.schoolId = userInfo.schoolId
-          }
-        }
-      } */
+      // body.appId = 'REM_WEB'
       let token = sessionStorage.getItem('token')
       if (token !== undefined && token !== '' && token !== null) {
         Vue.http.headers.common['token'] = token

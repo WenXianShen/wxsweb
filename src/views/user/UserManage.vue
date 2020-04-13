@@ -1,7 +1,7 @@
 <template>
     <div style="padding: 10px">
         <div style="background: #fff; border-radius: 8px; padding: 40px;height: 1000px;">
-          <div style="height: 100px;">
+          <div style="height: 120px;">
             <Form :model="formItem" :label-width="100">
               <FormItem label="用户名：" style="width: 20%;">
                 <Input v-model="formItem.name" placeholder="请输入" ></Input>

@@ -1,53 +1,65 @@
 export default
 {
   home: {
-    path: 'home',
+    path: '/home',
     name: 'home',
     meta: { title: '主页' },
     component: () => import('../views/index/Home.vue')
   },
   password: {
-    path: 'password',
+    path: '/password',
     name: 'password',
     meta: { title: '修改密码' },
     component: () => import('../views/index/Password.vue')
   },
   msg: {
-    path: 'msg',
+    path: '/msg',
     name: 'msg',
     meta: { title: '通知消息' },
     component: () => import('../views/index/Msg.vue')
   },
   userinfo: {
-    path: 'userinfo',
+    path: '/userinfo',
     name: 'userinfo',
     meta: { title: '用户信息' },
     component: () => import('../views/index/UserInfo.vue')
   },
   userManage: {
-    path: 'userManage',
+    path: '/userManage',
     name: 'userManage',
     meta: { title: '用户管理' },
     component: () => import('../views/user/UserManage.vue')
   },
   userAdd: {
-    path: 'userAdd',
+    path: '/userAdd',
     name: 'userAdd',
     component: () => import('../views/user/UserAdd.vue')
   },
   menuManage: {
-    path: 'menuManage',
+    path: '/menuManage',
     name: 'menuManage',
+    meta: { title: '菜单管理' },
     component: () => import('../views/menu/MenuManage.vue')
   },
   roleManage: {
-    path: 'roleManage',
+    path: '/roleManage',
     name: 'roleManage',
+    meta: { title: '角色管理' },
     component: () => import('../views/role/RoleManage.vue')
   },
   roleAdd: {
-    path: 'roleAdd',
+    path: '/roleAdd',
     name: 'roleAdd',
     component: () => import('../views/role/RoleAdd.vue')
+  },
+  menuAdd: {
+    path: '/menuAdd',
+    name: 'menuAdd',
+    component: () => import('../views/menu/MenuAdd.vue')
+  },
+  menuUpdate: {
+    path: '/menuUpdate/:id',
+    name: 'menuUpdate',
+    component: () => import('../views/menu/MenuUpdate.vue')
   }
 }

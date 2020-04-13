@@ -120,7 +120,7 @@
         </header>
 
         <!-- 标签栏 -->
-        <div class="div-tags">
+        <!--<div class="div-tags">
           <ul class="ul-c">
             <li
               v-for="(item, index) in tagsArry"
@@ -134,11 +134,11 @@
               <Icon size="16" @click="closeTag(index)" type="md-close" />
             </li>
           </ul>
-          <!-- 标签栏相关功能 -->
+          &lt;!&ndash; 标签栏相关功能 &ndash;&gt;
           <div class="div-icons">
-            <!--<div class="refresh-c" @click="reloadPage" title="刷新当前标签页">
+            &lt;!&ndash;<div class="refresh-c" @click="reloadPage" title="刷新当前标签页">
                             <Icon type="md-refresh" />
-                        </div>-->
+                        </div>&ndash;&gt;
             <div class="tag-options" title="关闭标签">
               <Dropdown trigger="click" @on-click="closeTags">
                 <Button type="primary" style="height: 24px;">
@@ -152,7 +152,7 @@
               </Dropdown>
             </div>
           </div>
-        </div>
+        </div>-->
       </div>
       <!-- 页面主体 -->
       <div class="main-content">
@@ -369,7 +369,7 @@ export default {
       this.currentPage = name
       this.crumbs = this.paths[name]
       /* this.$router.replace({ name, params }) */
-      this.$router.push({ path: name })
+      this.$router.push({ path: '/' + name })
       if (!this.keepAliveData.includes(name)) {
         // 如果标签超过8个 则将第一个标签删除
         if (this.tagsArry.length === 8) {

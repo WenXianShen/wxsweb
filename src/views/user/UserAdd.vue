@@ -13,8 +13,8 @@
           </FormItem>
           <FormItem label="性别:">
           <RadioGroup v-model="formItem.gender">
-            <Radio label="0">男</Radio>
-            <Radio label="1">女</Radio>
+            <Radio :label="0" checked="checked">男</Radio>
+            <Radio :label="1">女</Radio>
           </RadioGroup>
         </FormItem>
         </Form>
@@ -31,7 +31,7 @@ export default {
       formItem: {
         account: '',
         name: '',
-        gender: ''
+        gender: 0
       }
     }
   },
