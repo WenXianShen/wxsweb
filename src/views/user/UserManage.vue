@@ -44,6 +44,16 @@ export default {
         {
           title: '住址',
           key: 'address'
+        },
+        {
+          title: '状态',
+          key: 'isDeleted',
+          render: (h, params) => {
+            return h('div', [
+              h('p', {
+              }, params.row.isDeleted === '1' ? '禁用' : '启用')
+            ])
+          }
         }
       ],
       tableData: [],

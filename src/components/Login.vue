@@ -71,18 +71,20 @@ export default {
         this.$Message.error('请输入密码')
         return
       }
-      this._UTIL.fpost(this._API.webLogin.login, this.loginVo, function (data) {
-        that.isShowLoading = true
-        that.$Message.success('登录成功')
-        // 登陆成功 设置用户信息
-        sessionStorage.setItem('userImg', 'https://avatars3.githubusercontent.com/u/22117876?s=460&v=4')
-        sessionStorage.setItem('users', JSON.stringify(data.user))
-        // 假设这里是后台返回的 token
-        sessionStorage.setItem('token', data.token)
-        // 后台返回的动态菜单
-        sessionStorage.setItem('menuList', JSON.stringify(data.menuList))
-        that.$router.push('/main')
-      })
+      if (!that.isShowLoading) {
+        this._UTIL.fpost(this._API.webLogin.login, this.loginVo, function (data) {
+          that.$Message.success('登录成功')
+          // 登陆成功 设置用户信息
+          sessionStorage.setItem('userImg', 'https://avatars3.githubusercontent.com/u/22117876?s=460&v=4')
+          sessionStorage.setItem('users', JSON.stringify(data.user))
+          // 假设这里是后台返回的 token
+          sessionStorage.setItem('token', data.token)
+          // 后台返回的动态菜单
+          sessionStorage.setItem('menuList', JSON.stringify(data.menuList))
+          that.isShowLoading = true
+          that.$router.push('/main')
+        })
+      }
     },
     show: function () {
       this.submit()

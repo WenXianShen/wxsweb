@@ -41,17 +41,6 @@ export default
     meta: { title: '菜单管理' },
     component: () => import('../views/menu/MenuManage.vue')
   },
-  roleManage: {
-    path: '/roleManage',
-    name: 'roleManage',
-    meta: { title: '角色管理' },
-    component: () => import('../views/role/RoleManage.vue')
-  },
-  roleAdd: {
-    path: '/roleAdd',
-    name: 'roleAdd',
-    component: () => import('../views/role/RoleAdd.vue')
-  },
   menuAdd: {
     path: '/menuAdd',
     name: 'menuAdd',
@@ -61,5 +50,17 @@ export default
     path: '/menuUpdate/:id',
     name: 'menuUpdate',
     component: () => import('../views/menu/MenuUpdate.vue')
+  },
+  roleManage: {
+    path: '/roleManage',
+    name: 'roleManage',
+    meta: { title: '角色管理' },
+    component: () => import('../views/role/RoleManage.vue')
+  },
+  updateRoleMenuList: {
+    path: '/updateRoleMenuList/:roleId',
+    name: 'updateRoleMenuList',
+    meta: { title: '分配菜单' },
+    component: () => import('../views/role/UpdateRoleMenuList.vue')
   }
 }
