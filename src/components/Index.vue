@@ -68,7 +68,6 @@
             v-else-if="!item.hidden"
             :name="item.name"
           >
-            <a>{{ item.hidden }}</a>
             <Icon :size="item.size" :type="item.type" />
             <span v-show="isShowAsideTitle">{{ item.text }}</span>
           </MenuItem>
@@ -369,7 +368,12 @@ export default {
       this.currentPage = name
       this.crumbs = this.paths[name]
       /* this.$router.replace({ name, params }) */
-      this.$router.push({ path: '/' + name })
+      if (name === '' || name === undefined || name === null) {
+        this.$router.push({ path: name })
+      } else {
+        this.$router.push({ path: '/' + name })
+      }
+
       if (!this.keepAliveData.includes(name)) {
         // 如果标签超过8个 则将第一个标签删除
         if (this.tagsArry.length === 8) {

@@ -95,7 +95,7 @@ export default {
                     form.id = params.row.id
                     form.isDeleted = params.row.isDeleted === '2' ? 1 : 2
                     let that = this
-                    this._UTIL.jpost(this._API.role.updateRole,form, function (data) {
+                    this._UTIL.jpost(this._API.role.updateRole, form, function (data) {
                       that.$Message.success(data)
                       that.initRoleList(1)
                     })
