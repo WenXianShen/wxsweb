@@ -1,5 +1,6 @@
 <template>
-  <div style="
+  <div
+    style="
     position: absolute;
     left: 0;
     right: 0;
@@ -10,7 +11,8 @@
     background-color: #fff;
     color: #303133;
     transition: .3s;
-">
+"
+  >
     <el-tree
       ref="tree"
       :data="data"
@@ -100,12 +102,18 @@ export default {
             this._API.menu.updateRoleMenuListByRoleId,
             { id: this.formItem.roleId, menuList: arr },
             function (data) {
-              if (data === '保存成功!') { // 跳转路由
+              if (data === '保存成功!') {
+                // 跳转路由
                 that.$message({
                   type: 'success',
                   message: data
                 })
                 that.$router.push('/roleManage')
+              } else {
+                that.$message({
+                  type: 'error',
+                  message: data
+                })
               }
             }
           )

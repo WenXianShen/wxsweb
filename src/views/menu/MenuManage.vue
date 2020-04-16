@@ -151,7 +151,7 @@ export default {
         that.selection.forEach(function (item, index) {
           that.selectionIds.push(item.id)
         })
-        this._UTIL.jpost(this._API.menu.deleteMenu, {ids: that.selectionIds}, function (data) {
+        this._UTIL.jpost(this._API.menu.deleteMenu, that.selectionIds, function (data) {
           that.$Message.success(data)
           if (data === '删除成功') {
           // 刷新列表

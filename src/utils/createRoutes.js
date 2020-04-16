@@ -4,7 +4,7 @@ export default function createRoutes (data) {
   const result = []
   const children = []
   result.push({
-    path: '/',
+    path: '/home',
     component: () => import('../components/Index.vue'),
     children
   })
@@ -27,8 +27,14 @@ export default function createRoutes (data) {
 
 function generateRoutes (children, item) {
   if (item.name) {
-    children.push(asyncRoutes[item.name])
-  } else if (item.children) {
+    if (asyncRoutes[item.name] === undefined) { // 这里判断是有可能先在后台管理中添加菜单，没有页面时，会出问题
+      var routerName = item.name
+      children.push({path: '/' + routerName, name: routerName, meta: { title: routerName }})
+    } else {
+      children.push(asyncRoutes[item.name])
+    }
+  }
+  if (item.children) {
     item.children.forEach(e => {
       generateRoutes(children, e)
     })

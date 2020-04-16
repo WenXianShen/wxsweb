@@ -69,7 +69,8 @@ export default {
               h('Button', {
                 props: {
                   type: 'primary',
-                  size: 'small'
+                  size: 'small',
+                  ghost: true
                 },
                 style: {
                   marginRight: '5px'

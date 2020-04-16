@@ -15,19 +15,26 @@
             </row>
             <row>
               <Form :model="formItem" :label-width="100" :rules="ruleValidate"  ref="formItem" style="margin-top: 5%;">
-                <FormItem label="角色名称：" style="width: 40%;" prop="roleName">
-                  <Input v-model="formItem.roleName" placeholder="请输入"></Input>
+                <FormItem label="账号：" style="width: 40%;" prop="userAccount" >
+                  <Input v-model="formItem.userAccount" placeholder="请输入"></Input>
                 </FormItem>
-                <FormItem label="角色级别:" style="width: 40%;" prop="roleType">
-                  <i-select
-                    v-model="formItem.roleType"
-                  >
-                    <i-option :value="0">超级管理员</i-option>
-                    <i-option :value="1">普通管理员</i-option>
-                  </i-select>
+                <FormItem label="用户名：" style="width: 40%;" prop="userNameZh">
+                  <Input v-model="formItem.userNameZh" placeholder="请输入"></Input>
                 </FormItem>
-                <FormItem label="角色描述:" style="width: 40%;" >
-                  <Input v-model="formItem.description" placeholder="请输入"></Input>
+                <FormItem label="密码：" style="width: 40%;" prop="password">
+                  <Input v-model="formItem.password" placeholder="请输入" type="password" password ></Input>
+                </FormItem>
+                <FormItem label="性别:" style="width: 40%;">
+                  <RadioGroup v-model="formItem.gender">
+                    <Radio :label="0" checked="checked">男</Radio>
+                    <Radio :label="1">女</Radio>
+                  </RadioGroup>
+                </FormItem>
+                <FormItem label="邮箱：" style="width: 40%;" prop="mail">
+                  <Input v-model="formItem.mail" placeholder="请输入"></Input>
+                </FormItem>
+                <FormItem label="手机号：" style="width: 40%;" prop="telephone">
+                  <Input v-model="formItem.telephone" placeholder="请输入"></Input>
                 </FormItem>
                 <Form-item>
                   <Button type="primary" @click="handleSubmit('formItem') ">确定</Button>
@@ -35,7 +42,6 @@
                 </Form-item>
               </Form>
             </row>
-            <br><br>
           </div>
         </div>
       </div>
@@ -48,34 +54,40 @@ export default {
   data () {
     return {
       formItem: {
-        roleName: '',
-        roleType: '',
-        description: ''
+        userAccount: '',
+        userNameZh: '',
+        gender: 0,
+        password: '',
+        mail: '',
+        telephone: '',
+        userType: 0
       },
       ruleValidate: {
-        roleName: [
-          {required: true, message: '角色名称不能为空', trigger: 'blur'}
+        userAccount: [
+          {required: true, message: '账号不能为空', trigger: 'blur'}
         ],
-        roleType: [
-          {required: true, message: '请选择角色级别', trigger: 'change', type: 'number'}
+        userNameZh: [
+          {required: true, message: '用户名不能为空', trigger: 'blur'}
+        ],
+        password: [
+          {required: true, message: '密码不能为空', trigger: 'blur'}
         ]
-
       }
     }
   },
   created: function () {
     if (this.choosePage.type === 'update') {
-      this.choosePage.title = '编辑角色'
+      this.choosePage.title = '编辑用户'
       let that = this
       if (that.choosePage.object.id === undefined && that.choosePage.object.id === '') {
         return
       }
-      this._UTIL.jpost(this._API.role.getRoleInfoByRoleId, this.choosePage.object.id, function (data) {
+      this._UTIL.jpost(this._API.user.getUserInfoById, this.choosePage.object.id, function (data) {
         that.formItem = data
-        that.formItem.roleType = parseInt(data.roleType)
+        that.formItem.gender = parseInt(data.gender)
       })
     } else {
-      this.choosePage.title = '添加角色'
+      this.choosePage.title = '添加用户'
     }
   },
   props: {
@@ -91,7 +103,7 @@ export default {
         if (valid) {
           let that = this
           if (this.choosePage.type === 'update') {
-            this._UTIL.jpost(this._API.role.updateRole, this.formItem, function (data) {
+            this._UTIL.jpost(this._API.user.updateUser, this.formItem, function (data) {
               that.$Message.success(data)
               if (data === '修改成功') {
                 that.choosePage.isOpen = false
@@ -99,7 +111,7 @@ export default {
               }
             })
           } else {
-            this._UTIL.jpost(this._API.role.saveRole, this.formItem, function (data) {
+            this._UTIL.jpost(this._API.user.insertUser, this.formItem, function (data) {
               that.$Message.success(data)
               if (data === '添加成功') {
                 that.choosePage.isOpen = false

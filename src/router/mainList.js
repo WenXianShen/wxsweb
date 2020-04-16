@@ -30,11 +30,6 @@ export default
     meta: { title: '用户管理' },
     component: () => import('../views/user/UserManage.vue')
   },
-  userAdd: {
-    path: '/userAdd',
-    name: 'userAdd',
-    component: () => import('../views/user/UserAdd.vue')
-  },
   menuManage: {
     path: '/menuManage',
     name: 'menuManage',
