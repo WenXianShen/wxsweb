@@ -27,7 +27,7 @@
             :name="index"
           >
             <template slot="title">
-              <Icon :size="item.size" :type="item.type" />
+              <Icon :size="20" :type="item.type" />
               <span v-show="isShowAsideTitle">{{ item.text }}</span>
             </template>
             <div v-for="(subItem, i) in item.children" :key="index + i">
@@ -37,7 +37,7 @@
                 :name="index + '-' + i"
               >
                 <template slot="title" v-if="!subItem.hidden">
-                  <Icon :size="subItem.size" :type="subItem.type" />
+                  <Icon :size="20" :type="subItem.type" />
                   <span v-show="isShowAsideTitle">{{ subItem.text }}</span>
                 </template>
                 <MenuItem
@@ -48,7 +48,7 @@
                   :key="index + i + k"
                 >
                   <template v-if="!threeItem.hidden">
-                    <Icon :size="threeItem.size" :type="threeItem.type" />
+                    <Icon :size="20" :type="threeItem.type" />
                     <span v-show="isShowAsideTitle">{{ threeItem.text }}</span>
                   </template>
                 </MenuItem>
@@ -58,7 +58,7 @@
                 v-else-if="!subItem.hidden"
                 :name="subItem.name"
               >
-                <Icon :size="subItem.size" :type="subItem.type" />
+                <Icon :size="20" :type="subItem.type" />
                 <span v-show="isShowAsideTitle">{{ subItem.text }}</span>
               </MenuItem>
             </div>
@@ -68,7 +68,7 @@
             v-else-if="!item.hidden"
             :name="item.name"
           >
-            <Icon :size="item.size" :type="item.type" />
+            <Icon :size='20' :type="item.type" />
             <span v-show="isShowAsideTitle">{{ item.text }}</span>
           </MenuItem>
         </div>

@@ -37,7 +37,7 @@
           </FormItem>
           <FormItem
             label="路由名称："
-            style="width: 20%;" prop="routerPath"  v-if="parentIsShow"
+            style="width: 20%;" prop="routerPath"
           >
             <Input v-model="formItem.routerPath"></Input>
           </FormItem>

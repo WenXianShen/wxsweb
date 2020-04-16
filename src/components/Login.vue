@@ -3,11 +3,12 @@
     <div class="container">
       <p class="title">WELCOME</p>
       <div class="input-c">
-        <Input prefix="ios-contact"  sytle=autocomplete:off  v-model="loginVo.account" placeholder="用户名" clearable @on-blur="verifyAccount"  @keyup.enter="show"/>
+        <Input prefix="ios-contact"  sytle=autocomplete:off  autocomplete="new-password" v-model="loginVo.account" placeholder="用户名" clearable @on-blur="verifyAccount"  @keyup.enter="show"/>
         <p class="error">{{accountError}}</p>
       </div>
       <div class="input-c">
-        <Input type="password" v-model="loginVo.password" prefix="md-lock" placeholder="密码" clearable @on-blur="verifyPwd"  @keyup.enter="show"/>
+        <Input v-model="loginVo.password" type="password" v-show="false"></Input>
+        <Input type="password" v-model="loginVo.password"   sytle=autocomplete:off  autocomplete="new-password" prefix="md-lock" placeholder="密码" clearable @on-blur="verifyPwd"  @keyup.enter="show"/>
         <p class="error">{{pwdError}}</p>
       </div>
       <Button :loading="isShowLoading" class="submit" type="primary" @click="submit">登陆</Button>
@@ -82,7 +83,7 @@ export default {
           // 后台返回的动态菜单
           sessionStorage.setItem('menuList', JSON.stringify(data.menuList))
           that.isShowLoading = true
-          that.$router.push('/main')
+          that.$router.push('/home')
         })
       }
     },

@@ -19,10 +19,10 @@
                   <Input v-model="formItem.userAccount" placeholder="请输入"></Input>
                 </FormItem>
                 <FormItem label="用户名：" style="width: 40%;" prop="userNameZh">
-                  <Input v-model="formItem.userNameZh" placeholder="请输入"></Input>
+                  <Input v-model="formItem.userNameZh"   sytle=autocomplete:off autocomplete="new-password" placeholder="请输入"></Input>
                 </FormItem>
                 <FormItem label="密码：" style="width: 40%;" prop="password">
-                  <Input v-model="formItem.password" placeholder="请输入" type="password" password ></Input>
+                  <Input v-model="formItem.password"  sytle=autocomplete:off autocomplete="new-password" placeholder="请输入" type="password" password ></Input>
                 </FormItem>
                 <FormItem label="性别:" style="width: 40%;">
                   <RadioGroup v-model="formItem.gender">
@@ -70,7 +70,7 @@ export default {
           {required: true, message: '用户名不能为空', trigger: 'blur'}
         ],
         password: [
-          {required: true, message: '密码不能为空', trigger: 'blur'}
+          {required: true, message: '密码不能少于6位', trigger: 'blur', pattern: /^[0-9A-Za-z]{6,}$/}// 正则表达式验证
         ]
       }
     }
