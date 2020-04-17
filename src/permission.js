@@ -22,6 +22,7 @@ router.beforeEach((to, from, next) => {
         // 动态添加路由
         router.addRoutes(routes)
         hasMenus = true
+        store.state.isTokenCheck = true // 这里是为了判断后端是否验证token
         next({ path: to.path })
       } catch (error) {
         resetTokenAndClearUser()

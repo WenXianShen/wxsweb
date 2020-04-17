@@ -3,6 +3,7 @@
  */
 // 加密相关
 import md5 from 'js-md5'
+import store from '../../store'
 let base64 = require('js-base64').Base64
 
 export default function (Vue) {
@@ -18,14 +19,17 @@ export default function (Vue) {
       if (token !== undefined && token !== '' && token !== null) {
         Vue.http.headers.common['token'] = token
       }
-      Vue.http.post(url, body).then(response => {
+      Vue.http.post(process.env.BASE_API + url, body).then(response => {
         if (response.body.status === 1) {
           callback(response.body.result)
         } else if (response.body.status === 2) { // 业务检验失败
           Vue.prototype.$Message.warning(response.body.message)
         } else if (response.body.status === 0) { // 登录失效
-          Vue.prototype.$Message.warning(response.body.message)
-          window.location.href = '#/'
+          if (store.state.isTokenCheck) { // 判断后端是否验证过token
+            store.state.isTokenCheck = false
+            Vue.prototype.$Message.warning(response.body.message)
+            window.location.href = '#/'
+          }
         } else { // 系统错误
           Vue.prototype.$Message.warning(response.body.message)
         }
@@ -62,14 +66,15 @@ export default function (Vue) {
       }
       // 请求类型设置
       let options = {emulateJSON: true}
-      Vue.http.post(url, body, options).then(response => {
+      Vue.http.post(process.env.BASE_API + url, body, options).then(response => {
         if (response.body.status === 1) {
           callback(response.body.result)
         } else if (response.body.status === 2) { // 业务检验失败
           Vue.prototype.$Message.warning(response.body.message)
         } else if (response.body.status === 0) { // 登录失效
-          Vue.prototype.$Message.warning(response.body.message)
-          if (response.body.status === 0) {
+          if (store.state.isTokenCheck) {  // 判断后端是否验证过token
+            store.state.isTokenCheck = false
+            Vue.prototype.$Message.warning(response.body.message)
             window.location.href = '#/'
           }
         } else { // 系统错误

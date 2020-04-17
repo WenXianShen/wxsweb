@@ -17,9 +17,6 @@ Vue.use(Resource)
 Vue.prototype._API = Api
 // 通用方法
 Vue.use(Util)
-// TODO 项目地址设定
-Vue.url.options.root = '/wxs'
-Vue.prototype._URLROOT = '/wxs'
 // 提示是否开启提示
 Vue.config.productionTip = false
 
