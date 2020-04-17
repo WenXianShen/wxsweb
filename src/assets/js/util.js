@@ -72,7 +72,7 @@ export default function (Vue) {
         } else if (response.body.status === 2) { // 业务检验失败
           Vue.prototype.$Message.warning(response.body.message)
         } else if (response.body.status === 0) { // 登录失效
-          if (store.state.isTokenCheck) {  // 判断后端是否验证过token
+          if (store.state.isTokenCheck) { // 判断后端是否验证过token
             store.state.isTokenCheck = false
             Vue.prototype.$Message.warning(response.body.message)
             window.location.href = '#/'
