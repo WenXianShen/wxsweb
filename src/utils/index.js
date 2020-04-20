@@ -1,5 +1,4 @@
 import { resetRouter } from '@/router'
-
 export function resetTokenAndClearUser () {
   // 退出登陆 清除用户资料
   sessionStorage.setItem('token', '')

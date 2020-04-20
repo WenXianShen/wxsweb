@@ -4,7 +4,8 @@
 export default {
   webLogin: {
     // 用户登录接口
-    login: 'WebLogin/login.do'
+    login: 'WebLogin/login.do', // 登录
+    loginOut: 'WebLogin/loginOut.do'// 退出登录
   },
   user: {// 用户
     getUserList: 'user/getUserList', // 根据条件查询用户列表

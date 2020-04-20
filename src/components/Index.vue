@@ -402,8 +402,13 @@ export default {
           this.gotoPage('userinfo')
           break
         case '3':
-          resetTokenAndClearUser()
-          this.$router.replace({ name: 'login' })
+          let that = this
+          this._UTIL.jpost(this._API.webLogin.loginOut, sessionStorage.getItem('users'), function (data) {
+            if (data === '退出成功!') {
+              resetTokenAndClearUser()
+              that.$router.replace({ name: 'login' })
+            }
+          })
           break
       }
     },

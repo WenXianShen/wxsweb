@@ -4,6 +4,7 @@
 // 加密相关
 import md5 from 'js-md5'
 import store from '../../store'
+import { resetTokenAndClearUser } from '../../utils'
 let base64 = require('js-base64').Base64
 
 export default function (Vue) {
@@ -19,7 +20,7 @@ export default function (Vue) {
       if (token !== undefined && token !== '' && token !== null) {
         Vue.http.headers.common['token'] = token
       }
-      Vue.http.post(process.env.BASE_API + url, body).then(response => {
+      Vue.http.post(process.env.BASE_API + url, body, {withCredentials: true}).then(response => {
         if (response.body.status === 1) {
           callback(response.body.result)
         } else if (response.body.status === 2) { // 业务检验失败
@@ -27,6 +28,7 @@ export default function (Vue) {
         } else if (response.body.status === 0) { // 登录失效
           if (store.state.isTokenCheck) { // 判断后端是否验证过token
             store.state.isTokenCheck = false
+            resetTokenAndClearUser()
             Vue.prototype.$Message.warning(response.body.message)
             window.location.href = '#/'
           }
@@ -65,7 +67,7 @@ export default function (Vue) {
         Vue.http.headers.common['token'] = token
       }
       // 请求类型设置
-      let options = {emulateJSON: true}
+      let options = {emulateJSON: true, withCredentials: true}
       Vue.http.post(process.env.BASE_API + url, body, options).then(response => {
         if (response.body.status === 1) {
           callback(response.body.result)
@@ -74,6 +76,7 @@ export default function (Vue) {
         } else if (response.body.status === 0) { // 登录失效
           if (store.state.isTokenCheck) { // 判断后端是否验证过token
             store.state.isTokenCheck = false
+            resetTokenAndClearUser()
             Vue.prototype.$Message.warning(response.body.message)
             window.location.href = '#/'
           }
