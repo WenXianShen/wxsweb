@@ -20,7 +20,7 @@ export default function (Vue) {
       if (token !== undefined && token !== '' && token !== null) {
         Vue.http.headers.common['token'] = token
       }
-      Vue.http.post(process.env.BASE_API + url, body, {withCredentials: true}).then(response => {
+      Vue.http.post(process.env.BASE_API + url, body).then(response => {
         if (response.body.status === 1) {
           callback(response.body.result)
         } else if (response.body.status === 2) { // 业务检验失败
@@ -67,7 +67,7 @@ export default function (Vue) {
         Vue.http.headers.common['token'] = token
       }
       // 请求类型设置
-      let options = {emulateJSON: true, withCredentials: true}
+      let options = {emulateJSON: true}
       Vue.http.post(process.env.BASE_API + url, body, options).then(response => {
         if (response.body.status === 1) {
           callback(response.body.result)

@@ -182,13 +182,16 @@ export default {
                   },
                   on: {
                     click: () => {
+                      this.allocRoleIds = []
                       this.formItem.id = params.row.id
                       let that = this
                       this._UTIL.jpost(
                         this._API.role.getUserRoleByUserId,
                         params.row.id,
                         function (data) {
-                          that.allocRoleIds = data
+                          data.forEach(function (item) {
+                            that.allocRoleIds.push(item.id)
+                          })
                         }
                       )
                       this.allocDialogVisible = true
