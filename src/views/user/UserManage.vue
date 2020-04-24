@@ -5,12 +5,12 @@
     >
       <div style="height: 120px;">
         <Form :model="formItem" :label-width="100">
-          <FormItem label="用户名：" style="width: 20%;">
+          <FormItem label="用户名：" style="width: 30%;">
             <Input v-model="formItem.name" placeholder="请输入"></Input>
           </FormItem>
         </Form>
 
-        <div style="float: right;margin-right: 1%;">
+        <div style="float: right;margin-right: 1em;">
           <Button type="primary" icon="ios-search" @click="initUserList(1)"
             >查询</Button
           >
@@ -117,7 +117,9 @@ export default {
         },
         {
           title: '操作',
-          key: 'isDeleted',
+          key: '',
+          minWidth: 150,
+          maxWidth: 300,
           render: (h, params) => {
             return h('div', [
               h(
@@ -296,9 +298,10 @@ export default {
         let that = this
         this._UTIL.jpost(
           this._API.role.updateUserRole,
-          {id: this.formItem.id, roleIds: this.allocRoleIds},
+          { id: this.formItem.id, roleIds: this.allocRoleIds },
           function (data) {
-            if (data === '分配成功') { // 跳转路由
+            if (data === '分配成功') {
+              // 跳转路由
               that.$message({
                 type: 'success',
                 message: data

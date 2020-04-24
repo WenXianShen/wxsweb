@@ -3,12 +3,12 @@
     <div class="container">
       <p class="title">WELCOME</p>
       <div class="input-c">
-        <Input prefix="ios-contact"  sytle=autocomplete:off  autocomplete="new-password" v-model="loginVo.account" placeholder="用户名" clearable @on-blur="verifyAccount"  @keyup.enter="show"/>
+        <Input prefix="ios-contact"  sytle=autocomplete:off  @on-enter="submit" autocomplete="new-password" v-model="loginVo.account" placeholder="用户名" clearable @on-blur="verifyAccount"  @keyup.enter="show"/>
         <p class="error">{{accountError}}</p>
       </div>
       <div class="input-c">
         <Input v-model="loginVo.password" type="password" v-show="false"></Input>
-        <Input type="password" v-model="loginVo.password"   sytle=autocomplete:off  autocomplete="new-password" prefix="md-lock" placeholder="密码" clearable @on-blur="verifyPwd"  @keyup.enter="show"/>
+        <Input type="password" v-model="loginVo.password" @on-enter="submit" sytle=autocomplete:off  autocomplete="new-password" prefix="md-lock" placeholder="密码" clearable @on-blur="verifyPwd"  @keyup.enter="show"/>
         <p class="error">{{pwdError}}</p>
       </div>
       <Button :loading="isShowLoading" class="submit" type="primary" @click="submit">登陆</Button>

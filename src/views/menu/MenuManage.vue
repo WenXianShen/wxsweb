@@ -4,23 +4,23 @@
       <div style="height: 120px;width: 100%;">
         <Form :model="formItem" :label-width="100">
           <row>
-          <FormItem label="菜单名称：" style="width: 20%;float:left;">
+          <FormItem label="菜单名称：" style="width: 30%;float:left;">
             <Input v-model="formItem.menuName" placeholder="请输入"></Input>
           </FormItem>
-          <FormItem label="菜单级别：" style="width: 20%;float:left;margin-left: 20px;">
+          <FormItem label="菜单级别：" style="width: 30%;float:left;margin-left: 20px;">
             <i-select v-model="formItem.lvl" name="lvl">
               <i-option :value="0">一级菜单</i-option>
               <i-option :value="1">二级菜单</i-option>
             </i-select>
           </FormItem>
-            <FormItem label="父级菜单：" style="width: 20%;float:left;margin-left: 20px;">
+            <FormItem label="父级菜单：" style="width: 30%;float:left;margin-left: 20px;">
               <i-select v-model="formItem.parentId" name="parentId">
                 <i-option v-for="item in menuList" :value="item.id" :key="item.id">{{ item.name }}</i-option>
               </i-select>
             </FormItem>
           </row>
         </Form>
-        <div style="float: right;margin-right: 1%;">
+        <div style="float: right;margin-right: 1em;">
           <Button type="primary" icon="ios-search" @click="initMenu(1)"
             >查询</Button
           >

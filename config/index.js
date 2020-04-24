@@ -18,7 +18,7 @@ module.exports = {
       }
     },*/
     // Various Dev Server settings
-    host: '127.0.0.1', // can be overwritten by process.env.HOST
+    host: 'localhost', // can be overwritten by process.env.HOST
     port: 8083, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,
@@ -58,7 +58,7 @@ module.exports = {
     /**
      * Source Maps
      */
-    productionSourceMap: true,
+    productionSourceMap: false,
     // https://webpack.js.org/configuration/devtool/#production
     devtool: '#source-map',
     // Gzip off by default as many popular static hosts such as

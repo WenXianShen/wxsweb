@@ -5,12 +5,12 @@
     >
       <div style="height: 100px;width: 100%;">
         <Form :model="formItem" :label-width="100" :rules="ruleValidate"  ref="formItem">
-          <FormItem label="菜单名称：" style="width: 20%;" prop="menuName">
+          <FormItem label="菜单名称：" style="width: 30%;" prop="menuName">
             <Input v-model="formItem.menuName" placeholder="请输入"></Input>
           </FormItem>
           <FormItem
             label="菜单级别："
-            style="width: 20%;" prop="lvl"
+            style="width: 30%;" prop="lvl"
           >
             <i-select
               v-model="formItem.lvl"
@@ -23,7 +23,7 @@
           </FormItem>
           <FormItem
             label="父级菜单："
-            style="width: 20%;"
+            style="width: 30%;"
             v-if="parentIsShow" prop="parentId"
           >
             <i-select v-model="formItem.parentId" name="lvl">
@@ -37,19 +37,19 @@
           </FormItem>
           <FormItem
             label="路由名称："
-            style="width: 20%;" prop="routerPath"
+            style="width: 30%;" prop="routerPath"
           >
             <Input v-model="formItem.routerPath"></Input>
           </FormItem>
           <FormItem
             label="排序："
-            style="width: 20%;" prop="displaySeq"
+            style="width: 30%;" prop="displaySeq"
           >
             <Input v-model="formItem.displaySeq"></Input>
           </FormItem>
           <FormItem
             label="是否展示："
-            style="width: 20%;" prop="isHidden"
+            style="width: 30%;" prop="isHidden"
           >
             <i-select
               v-model="formItem.isHidden"
@@ -60,7 +60,7 @@
           </FormItem>
           <FormItem
             label="菜单icon："
-            style="width: 20%;"
+            style="width: 30%;"
           >
             <Input v-model="formItem.type"></Input>
           </FormItem>
