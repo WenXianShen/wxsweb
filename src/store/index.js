@@ -6,7 +6,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     // 左侧菜单栏数据
-    menuItems: sessionStorage.getItem('menuList') ? JSON.parse(sessionStorage.getItem('menuList')) : [
+    menuItems: [
       {
         /* name: 'home', // 要跳转的路由名称 不是路径
         size: 18, // icon大小
@@ -52,7 +52,8 @@ const store = new Vuex.Store({
      *   例子:进入某个页面，这个页面加载完之后会调用后端方法，后端验证token，如token失效，会提示信息，
      *        但如果页面加载完调用多次后台方法，则后端会返回多次信息，所以为了用户体验，这里只要后台返回一次token失效信息，则将更改变量值
      * */
-    isTokenCheck: true
+    isTokenCheck: true,
+    users: ''
   },
   mutations: {
     setMenus (state, items) {

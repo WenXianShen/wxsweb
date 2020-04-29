@@ -76,7 +76,7 @@ export default {
         this._UTIL.fpost(this._API.webLogin.login, this.loginVo, function (data) {
           that.$Message.success('登录成功')
           // 登陆成功 设置用户信息
-          sessionStorage.setItem('userImg', 'https://avatars3.githubusercontent.com/u/22117876?s=460&v=4')
+          sessionStorage.setItem('userImg', data.user.imageUrl)
           sessionStorage.setItem('users', JSON.stringify(data.user))
           // 假设这里是后台返回的 token
           sessionStorage.setItem('token', data.token)

@@ -83,7 +83,12 @@ export default {
         return
       }
       this._UTIL.jpost(this._API.user.getUserInfoById, this.choosePage.object.id, function (data) {
-        that.formItem = data
+        that.formItem.id = data.id
+        that.formItem.userAccount = data.userAccount
+        that.formItem.password = data.password
+        that.formItem.userNameZh = data.userNameZh
+        that.formItem.telephone = data.telephone
+        that.formItem.gender = data.gender
         that.formItem.gender = parseInt(data.gender)
       })
     } else {
@@ -103,7 +108,7 @@ export default {
         if (valid) {
           let that = this
           if (this.choosePage.type === 'update') {
-            this._UTIL.jpost(this._API.user.updateUser, this.formItem, function (data) {
+            this._UTIL.fpost(this._API.user.updateUser, this.formItem, function (data) {
               that.$Message.success(data)
               if (data === '修改成功') {
                 that.choosePage.isOpen = false
@@ -111,7 +116,7 @@ export default {
               }
             })
           } else {
-            this._UTIL.jpost(this._API.user.insertUser, this.formItem, function (data) {
+            this._UTIL.fpost(this._API.user.insertUser, this.formItem, function (data) {
               that.$Message.success(data)
               if (data === '添加成功') {
                 that.choosePage.isOpen = false

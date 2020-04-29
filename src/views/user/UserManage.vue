@@ -158,7 +158,7 @@ export default {
                       form.id = params.row.id
                       form.isDeleted = params.row.isDeleted === '2' ? 1 : 2
                       let that = this
-                      this._UTIL.jpost(
+                      this._UTIL.fpost(
                         this._API.user.updateUser,
                         form,
                         function (data) {
